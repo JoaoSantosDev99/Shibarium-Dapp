@@ -1,7 +1,14 @@
 import { useWeb3Modal } from "@web3modal/react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 import { addressShortener } from "../../utils";
+
+import home from "../../assets/icons/home.png";
+import user from "../../assets/icons/user.png";
+import swap from "../../assets/icons/swap.png";
+import Logo from "../../assets/Logo.png";
+import ConnectButton from "../UI/ConnectButton";
+
 const Header = () => {
   const { open } = useWeb3Modal();
   const { chain } = useNetwork();
@@ -20,12 +27,14 @@ const Header = () => {
     }
   };
   return (
-    <header className="w-full flex justify-center">
-      <div className="max-w-screen-2xl w-full p-4 bg-[#551818]">
+    <header className="w-full flex justify-center bg-[#551818]">
+      <div className="max-w-screen-2xl w-full shadow-2xl p-1 sm:p-2 bg-[#FFF4CE]">
         {/* Desktop header */}
         <div className="flex justify-between items-center">
           <div className="flex gap-4">
-            <h1 className="text-4xl">Shibarium</h1>
+            <h1 className="text-4xl">
+              <img src={Logo} alt="logo" className="w-56" />
+            </h1>
 
             <ul className="hidden md:flex gap-2 font-ChakraPetch">
               <Link to="/">
@@ -49,16 +58,61 @@ const Header = () => {
           </div>
 
           {isConnected ? (
-            <button>{addressShortener(address)}</button>
+            <ConnectButton title={addressShortener(address)} />
           ) : (
-            <button
-              className="bg-[#FEB331] p-2 rounded-tr-md rounded-bl-md font-ChakraPetch"
-              onClick={connectWallet}
-            >
-              Connect Wallet
-            </button>
+            <ConnectButton title="Connect Wallet" onClick={connectWallet} />
           )}
         </div>
+
+        {/* Mobile Header */}
+        <nav className="flex items-center py-4 fixed md:hidden bg-[#551818] text-white z-10 bottom-0 right-0 left-0 justify-center gap-2 w-full">
+          <ul className="flex justify-evenly w-full">
+            <li>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-[#444] flex justify-center items-center p-2 rounded"
+                    : "flex justify-center items-center p-2 rounded"
+                }
+              >
+                <img src={home} alt="home" className="w-10" />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/swap"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-[#444] flex justify-center items-center p-2 rounded"
+                    : "flex justify-center items-center p-2 rounded"
+                }
+              >
+                <img
+                  src={swap}
+                  alt="swap"
+                  className="w-10 flex justify-center items-center rotate-90"
+                />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/user"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-[#444] flex justify-center items-center p-2 rounded"
+                    : "flex justify-center items-center p-2 rounded"
+                }
+              >
+                <img
+                  src={user}
+                  alt="user"
+                  className="w-10 flex justify-center items-center"
+                />
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
       </div>
     </header>
   );
