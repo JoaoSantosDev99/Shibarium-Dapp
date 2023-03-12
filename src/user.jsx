@@ -9,7 +9,7 @@ import abi from "./contracts/tokens_abi.json";
 
 const User = () => {
   const { address, isConnected } = useAccount();
-  const [primary, setprimary] = useState("dipsellerjay.inu");
+  const [primary, setprimary] = useState("cryptodaddy.inu");
   const [tokenBalance, setTokenBalance] = useState();
   const { data: signer } = useSigner();
 
@@ -55,7 +55,7 @@ const User = () => {
 
             {/* Data */}
             <ul className="flex justify-center text-[#78572d] border-2 border-[#8B6E48] bg-[#fef0bc] w-[350px] h-36 flex-col text-center sm:text-start text-lg sm:text-xl font-bold p-3 rounded-xl">
-              <li>Name: Dipseller Jay (demo)</li>
+              <li>Name: Crypto Daddy (demo)</li>
               <li>
                 Address:{" "}
                 {isConnected ? addressShortener(address) : "0x322..sdf2 (demo)"}
@@ -95,7 +95,13 @@ const User = () => {
                         onClick={changePrimary}
                         className="py-1 mb-1 cursor-pointer transition-all ease-in-out duration-150 hover:bg-[#fde48c] text-center px-2 rounded-lg"
                       >
-                        dipsellerdaddy.inu
+                        cryptodaddy.inu
+                      </li>
+                      <li
+                        onClick={changePrimary}
+                        className="py-1 mb-1 cursor-pointer transition-all ease-in-out duration-150 hover:bg-[#fde48c] text-center px-2 rounded-lg"
+                      >
+                        snshypper.inu
                       </li>
                       <li
                         onClick={changePrimary}
