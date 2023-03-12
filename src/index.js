@@ -7,6 +7,7 @@ import { configureChains, createClient, goerli, WagmiConfig } from "wagmi";
 import { Web3Modal } from "@web3modal/react";
 import { modalConnectors, walletConnectProvider } from "@web3modal/ethereum";
 import { EthereumClient } from "@web3modal/ethereum";
+import * as te from "tw-elements";
 
 const chains = [goerli];
 

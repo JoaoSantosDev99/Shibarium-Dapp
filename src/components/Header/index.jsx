@@ -1,5 +1,5 @@
 import { useWeb3Modal } from "@web3modal/react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 import { addressShortener } from "../../utils";
 
@@ -27,56 +27,95 @@ const Header = () => {
     }
   };
   return (
-    <header className="w-full flex justify-center bg-[#551818]">
-      <div className="max-w-screen-2xl w-full shadow-2xl p-1 sm:p-2 bg-[#FFF4CE]">
+    <header className="w-full flex justify-center pt-1 px-1">
+      <div className="max-w-screen-2xl w-full p-2 rounded-xl bg-[#A48253]">
         {/* Desktop header */}
         <div className="flex justify-between items-center">
           <div className="flex gap-4">
             <h1 className="text-4xl">
-              <img src={Logo} alt="logo" className="w-56" />
+              <img src={Logo} alt="logo" className="w-52" />
             </h1>
 
-            <ul className="hidden md:flex gap-2 font-ChakraPetch">
-              <Link to="/">
-                <li className="py-2 px-5 bg-[#722222] text-xl border-2 border-[#976f29] text-[#FEB331] rounded">
+            <ul className="hidden md:flex items-center gap-2">
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "py-2 px-5 text-[#482307] font-medium bg-[#ffeca7] border-2 border-[#ffeca7] shadow-md text-xl rounded-xl"
+                      : "py-2 px-5 text-[#482307] font-medium bg-[#fff3c6] border-2 border-[#fff3c6] shadow-md text-xl rounded-xl"
+                  }
+                >
                   Home
-                </li>
-              </Link>
+                </NavLink>
+              </li>
 
-              <Link to="/swap">
-                <li className="py-2 px-5 bg-[#722222] text-xl border-2 border-[#64491b] text-[#FEB331] rounded">
+              <li>
+                <NavLink
+                  to="/swap"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "py-2 px-5 text-[#482307] font-medium bg-[#ffeca7] border-2 border-[#ffeca7] shadow-md text-xl rounded-xl"
+                      : "py-2 px-5 text-[#482307] font-medium bg-[#fff3c6] border-2 border-[#fff3c6] shadow-md text-xl rounded-xl"
+                  }
+                >
+                  Swap
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/user"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "py-2 px-5 text-[#482307] font-medium bg-[#ffeca7] border-2 border-[#ffeca7] shadow-md text-xl rounded-xl"
+                      : "py-2 px-5 text-[#482307] font-medium bg-[#fff3c6] border-2 border-[#fff3c6] shadow-md text-xl rounded-xl"
+                  }
+                >
+                  Profile
+                </NavLink>
+              </li>
+
+              {/* <Link to="/swap">
+                <li className="py-2 px-5 text-[#482307] font-medium bg-[#fff3c6] border-2 border-[#c8a475] shadow-md text-xl rounded-xl">
                   Swap
                 </li>
               </Link>
-
               <Link to="/user">
-                <li className="py-2 px-5 bg-[#722222] text-xl border-2 border-[#64491b] text-[#FEB331] rounded">
+                <li className="py-2 px-5 text-[#482307] font-medium bg-[#fff3c6] border-2 border-[#c8a475] shadow-md text-xl rounded-xl">
                   Profile
                 </li>
-              </Link>
+              </Link> */}
             </ul>
           </div>
 
           {isConnected ? (
             <ConnectButton title={addressShortener(address)} />
           ) : (
-            <ConnectButton title="Connect Wallet" onClick={connectWallet} />
+            <div>
+              <div className="hidden md:flex">
+                <ConnectButton title="Connect Wallet" onClick={connectWallet} />
+              </div>
+              <div className="md:hidden">
+                <ConnectButton title="Connect" onClick={connectWallet} />
+              </div>
+            </div>
           )}
         </div>
 
         {/* Mobile Header */}
-        <nav className="flex items-center py-4 fixed md:hidden bg-[#551818] text-white z-10 bottom-0 right-0 left-0 justify-center gap-2 w-full">
+        <nav className="flex items-center border border-t-[#d0b28a] py-3 shadow-2xl fixed md:hidden bg-[#FFF4CE] text-white z-10 bottom-0 right-0 left-0 justify-center gap-2 w-full">
           <ul className="flex justify-evenly w-full">
             <li>
               <NavLink
                 to="/"
                 className={({ isActive }) =>
                   isActive
-                    ? "bg-[#444] flex justify-center items-center p-2 rounded"
+                    ? "bg-[#FFECA7] border-2 border-[#c8a475] flex justify-center items-center p-2 rounded-xl"
                     : "flex justify-center items-center p-2 rounded"
                 }
               >
-                <img src={home} alt="home" className="w-10" />
+                <img src={home} alt="home" className="w-8" />
               </NavLink>
             </li>
             <li>
@@ -84,15 +123,11 @@ const Header = () => {
                 to="/swap"
                 className={({ isActive }) =>
                   isActive
-                    ? "bg-[#444] flex justify-center items-center p-2 rounded"
+                    ? "bg-[#FFECA7] border-2 border-[#c8a475] flex justify-center items-center p-2 rounded-xl"
                     : "flex justify-center items-center p-2 rounded"
                 }
               >
-                <img
-                  src={swap}
-                  alt="swap"
-                  className="w-10 flex justify-center items-center rotate-90"
-                />
+                <img src={swap} alt="swap" className="w-8 rotate-[90deg]" />
               </NavLink>
             </li>
             <li>
@@ -100,15 +135,11 @@ const Header = () => {
                 to="/user"
                 className={({ isActive }) =>
                   isActive
-                    ? "bg-[#444] flex justify-center items-center p-2 rounded"
+                    ? "bg-[#FFECA7] border-2 border-[#c8a475] flex justify-center items-center p-2 rounded-xl"
                     : "flex justify-center items-center p-2 rounded"
                 }
               >
-                <img
-                  src={user}
-                  alt="user"
-                  className="w-10 flex justify-center items-center"
-                />
+                <img src={user} alt="user" className="w-8" />
               </NavLink>
             </li>
           </ul>
