@@ -6,11 +6,13 @@ import { useAccount, useSigner } from "wagmi";
 import { addressShortener } from "./utils";
 import { ethers } from "ethers";
 import abi from "./contracts/tokens_abi.json";
+const { getNFTsByAddress } = require("sns-namechecker");
 
 const User = () => {
   const { address, isConnected } = useAccount();
   const [primary, setprimary] = useState("cryptodaddy.inu");
   const [tokenBalance, setTokenBalance] = useState();
+
   const { data: signer } = useSigner();
 
   const staticProvider = new ethers.providers.JsonRpcProvider(
@@ -35,7 +37,15 @@ const User = () => {
       );
     };
 
+    const fetchUserNfts = async () => {
+      const test = await getNFTsByAddress(
+        "0x689f654f452cbe147e870d290f84e6ad479f48a0"
+      );
+      console.log(test);
+    };
+
     getBalance();
+    fetchUserNfts();
   }, []);
 
   const changePrimary = (e) => {
@@ -71,14 +81,14 @@ const User = () => {
           <div className="flex flex-col gap-2">
             {/* Dropdown */}
             <div className="bg-[#A48253] w-82 py-4 rounded-xl flex flex-col gap-1 justify-center items-center">
-              <h3 className="text-lg text-[#fff2e1] font-bold text-center">
+              <h3 className="text-lg font-sans text-[#fff2e1] font-bold text-center">
                 Select Primary Domain
               </h3>
 
               {/* Dropdown */}
               <div className="flex justify-center w-full">
                 <div className="w-[90%]">
-                  <div class="relative" data-te-dropdown-ref>
+                  <div className="relative" data-te-dropdown-ref>
                     <button
                       className="gap-2 w-full px-4 bg-[#FFECA7] font-bold text-[#78572d] border-2 border-[#c8a475] flex justify-center items-center p-2 rounded-xl"
                       data-te-dropdown-toggle-ref
@@ -87,7 +97,7 @@ const User = () => {
                       <img src={down} alt="down" className="w-5" />
                     </button>
                     <ul
-                      class="absolute w-full z-[1000] text-[#78572d] font-bold p-4 hidden list-none overflow-hidden rounded-lg border-none bg-[#FFECA7] shadow-lg [&[data-te-dropdown-show]]:block"
+                      className="absolute w-full z-[1000] text-[#78572d] font-bold p-4 hidden list-none overflow-hidden rounded-lg border-none bg-[#FFECA7] shadow-lg [&[data-te-dropdown-show]]:block"
                       aria-labelledby="dropdownMenu"
                       data-te-dropdown-menu-ref
                     >
@@ -150,7 +160,7 @@ const User = () => {
                 </button>
               </a>
               <a
-                href="https://opensea.io/assets?search[query]=0x56212890b11F448A0c689747A2e74C051cA4f028"
+                href="https://opensea.io/collection/dogtags-inu"
                 target="_blank"
                 rel="noreferrer"
               >

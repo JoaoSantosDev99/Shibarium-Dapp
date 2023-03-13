@@ -42,8 +42,8 @@ const Header = () => {
                   to="/"
                   className={({ isActive }) =>
                     isActive
-                      ? "py-2 px-5 text-[#482307] font-medium bg-[#ffeca7] border-2 border-[#ffeca7] shadow-md text-xl rounded-xl"
-                      : "py-2 px-5 text-[#482307] font-medium bg-[#fff3c6] border-2 border-[#fff3c6] shadow-md text-xl rounded-xl"
+                      ? "py-2 px-5 text-[#482307] font-bold bg-[#ffeca7] border-2 border-[#ffeca7] shadow-md text-xl rounded-xl"
+                      : "py-2 px-5 text-[#482307] font-bold bg-[#fff3c6] border-2 border-[#fff3c6] shadow-md text-xl rounded-xl"
                   }
                 >
                   Home
@@ -55,8 +55,8 @@ const Header = () => {
                   to="/swap"
                   className={({ isActive }) =>
                     isActive
-                      ? "py-2 px-5 text-[#482307] font-medium bg-[#ffeca7] border-2 border-[#ffeca7] shadow-md text-xl rounded-xl"
-                      : "py-2 px-5 text-[#482307] font-medium bg-[#fff3c6] border-2 border-[#fff3c6] shadow-md text-xl rounded-xl"
+                      ? "py-2 px-5 text-[#482307] font-bold bg-[#ffeca7] border-2 border-[#ffeca7] shadow-md text-xl rounded-xl"
+                      : "py-2 px-5 text-[#482307] font-bold bg-[#fff3c6] border-2 border-[#fff3c6] shadow-md text-xl rounded-xl"
                   }
                 >
                   Swap
@@ -68,24 +68,13 @@ const Header = () => {
                   to="/user"
                   className={({ isActive }) =>
                     isActive
-                      ? "py-2 px-5 text-[#482307] font-medium bg-[#ffeca7] border-2 border-[#ffeca7] shadow-md text-xl rounded-xl"
-                      : "py-2 px-5 text-[#482307] font-medium bg-[#fff3c6] border-2 border-[#fff3c6] shadow-md text-xl rounded-xl"
+                      ? "py-2 px-5 text-[#482307] font-bold bg-[#ffeca7] border-2 border-[#ffeca7] shadow-md text-xl rounded-xl"
+                      : "py-2 px-5 text-[#482307] font-bold bg-[#fff3c6] border-2 border-[#fff3c6] shadow-md text-xl rounded-xl"
                   }
                 >
                   Profile
                 </NavLink>
               </li>
-
-              {/* <Link to="/swap">
-                <li className="py-2 px-5 text-[#482307] font-medium bg-[#fff3c6] border-2 border-[#c8a475] shadow-md text-xl rounded-xl">
-                  Swap
-                </li>
-              </Link>
-              <Link to="/user">
-                <li className="py-2 px-5 text-[#482307] font-medium bg-[#fff3c6] border-2 border-[#c8a475] shadow-md text-xl rounded-xl">
-                  Profile
-                </li>
-              </Link> */}
             </ul>
           </div>
 

@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NFTListItem from "./components/UI/NFTListItem";
 import data from "./DATA/mock";
 import paw from "./assets/paw.png";
 import food from "./assets/food.png";
 import home from "./assets/home.png";
 import colar from "./assets/collar.png";
-// import top from "./assets/top.png";
+const { getAllNFTs } = require("sns-namechecker");
 
 const Home = () => {
   const [filterActive, setFilterActive] = useState(false);
   const [inputText, setInputText] = useState("");
+  const [allNfts, setAllNfts] = useState();
+
+  useEffect(() => {
+    const fetchAllNfts = async () => {
+      const allNfts = await getAllNFTs();
+      setAllNfts(allNfts);
+    };
+
+    fetchAllNfts();
+  }, []);
 
   const handleInputText = (e) => {
     setInputText(
@@ -21,10 +31,6 @@ const Home = () => {
     );
 
     setFilterActive(inputText !== "");
-    console.log(inputText);
-    console.log(data.length);
-
-    console.log("is filter active?", inputText !== "", inputText);
   };
 
   return (
@@ -50,7 +56,7 @@ const Home = () => {
         <h2 className="text-[#78572d] text-center text-2xl md:text-3xl mt-28 font-bold">
           Looking for a specific domain?
         </h2>
-        <div className="w-full flex flex-col items-center max-w-lg">
+        <div className="w-full relative flex flex-col items-center max-w-lg">
           <input
             value={inputText}
             onChange={handleInputText}
@@ -59,25 +65,28 @@ const Home = () => {
             className="bg-[#fff3c6] text-center text-xl font-bold placeholder:font-extrabold placeholder:text-[#cca575] placeholder:text-center text-[#82633b] rounded-xl w-full p-3 sm:p-5 italic outline-none border-[3px] border-[#be9867] mt-4"
           />
 
-          <ul className="bg-[#8b6e48] flex flex-col items-center py-4 w-full rounded-xl mt-2 text-xl text-black text-center">
-            {data
-              .filter((item) =>
-                item.domain
+          <ul className="bg-[#8b6e48] absolute top-20 sm:top-24 flex flex-col items-center py-4 w-full rounded-xl mt-2 text-xl text-black text-center">
+            {allNfts
+              ?.filter((item) =>
+                item.name
                   .replace(".inu", "")
                   .includes(inputText || inputText === "")
               )
               .map((item) => item).length !== 0 ? (
-              data
-                .filter((item) => item.domain.indexOf(inputText) !== -1)
+              allNfts
+                ?.filter((item) => item.name.indexOf(inputText) !== -1)
                 .map((item) => (
-                  <li className="py-2 bg-[#a5855b] my-1 rounded-lg w-[90%]">
+                  <li
+                    key={item.tokenId}
+                    className="py-2 bg-[#a5855b] my-1 rounded-lg w-[90%]"
+                  >
                     <a
                       className="flex text-sm md:text-lg text-[#FEE8CB] font-bold justify-center items-center gap-2"
                       href="https://www.youtube.com/watch?v=04mfKJWDSzI&list=RDEMRDrhDBv7g5VJA7vBZM1bjg&index=3"
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {item.domain}
+                      {item.name + ".inu"}
 
                       <img src={food} alt="redirect" className="w-7" />
                     </a>
@@ -97,15 +106,16 @@ const Home = () => {
           </ul>
         </div>
 
-        <h2 className="text-2xl md:text-[50px] font-bold text-center text-[#78572d] mb-3 sm:mb-10 mt-20">
+        <h2 className="text-3xl md:text-[45px] font-bold text-center text-[#78572d] mb-3 sm:mb-10 mt-28 md:mt-36">
           Check out the latest domains created
         </h2>
         <ul className="flex sm:px-2 flex-wrap py-10 md:py-20 gap-2 sm:gap-4 justify-center max-w-7xl w-full">
-          {data.map((item) => (
+          {allNfts?.map((item) => (
             <NFTListItem
-              address={item.owner}
-              domain={item.domain}
-              id={item.ID}
+              address={"0xadf9bfb903e34b25cec47b6d1a468741fdb71f69"}
+              domain={item.name + ".inu"}
+              id={item.tokenId}
+              key={item.tokenId}
             />
           ))}
         </ul>
